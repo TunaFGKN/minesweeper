@@ -1,0 +1,83 @@
+<MainMenuScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 20
+        padding: 50
+        Label:
+            text: "Minesweeper"
+            font_size: '32sp'
+        Button:
+            text: "Play"
+            on_press: root.manager.current = 'difficulty'
+        Button:
+            text: "Exit"
+            on_press: app.stop()
+
+<DifficultyScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 20
+        padding: 50
+        Label:
+            text: "Select Difficulty"
+            font_size: '28sp'
+        Button:
+            text: "Easy"
+            on_press:
+                root.manager.get_screen('game').setup_board(10, 10, 10)
+                root.manager.current = 'game'
+        Button:
+            text: "Medium"
+            on_press:
+                root.manager.get_screen('game').setup_board(15, 15, 30)
+                root.manager.current = 'game'
+        Button:
+            text: "Hard"
+            on_press:
+                root.manager.get_screen('game').setup_board(20, 20, 60)
+                root.manager.current = 'game'
+        Button:
+            text: "Custom"
+            on_press: root.manager.current = 'custom'
+
+<CustomBoardScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        padding: 50
+        Label:
+            text: "Custom Board Settings"
+        TextInput:
+            id: rows_input
+            hint_text: "Rows"
+            input_filter: 'int'
+        TextInput:
+            id: cols_input
+            hint_text: "Columns"
+            input_filter: 'int'
+        TextInput:
+            id: mines_input
+            hint_text: "Mines"
+            input_filter: 'int'
+        Button:
+            text: "Start Game"
+            on_press: root.start_custom_game()
+        Button:
+            text: "Back"
+            on_press: root.manager.current = 'difficulty'
+
+<GameScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 20
+        padding: 50
+
+        BoxLayout:
+            id: board_area
+            orientation: 'vertical'
+            size_hint_y: 0.9
+
+        Button:
+            text: "Back to Menu"
+            size_hint_y: 0.05
+            on_press: root.manager.current = 'menu'
